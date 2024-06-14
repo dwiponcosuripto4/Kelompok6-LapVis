@@ -27,32 +27,32 @@
                             <h3 class="text-2xl font-semibold mb-4">{{ __('Jenis Service Di Toko Kami:') }}</h3>
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg">
-                                    <img src="https://example.com/cleaning.jpg" alt="Cleaning" class="w-full h-32 object-cover mb-4 rounded-lg">
+                                    <img src="https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2014/08/Person-cleaning-dust-out-of-a-laptop.jpeg" alt="Cleaning" class="w-full h-32 object-cover mb-4 rounded-lg">
                                     <h4 class="text-xl font-semibold mb-2">Cleaning</h4>
                                     <p>Layanan pembersihan untuk menjaga performa laptop Anda.</p>
                                 </div>
                                 <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg">
-                                    <img src="https://example.com/upgrade-storage.jpg" alt="Upgrade Storage" class="w-full h-32 object-cover mb-4 rounded-lg">
+                                    <img src="https://media.kingston.com/kingston/opengraph/ktc-opengraph-blog-pc-performance-top-reasons-upgrade-nvme-ssd.jpg" alt="Upgrade Storage" class="w-full h-32 object-cover mb-4 rounded-lg">
                                     <h4 class="text-xl font-semibold mb-2">Upgrade Storage</h4>
                                     <p>Upgrade kapasitas penyimpanan untuk kecepatan dan ruang yang lebih besar.</p>
                                 </div>
                                 <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg">
-                                    <img src="https://example.com/upgrade-memory.jpg" alt="Upgrade Memory" class="w-full h-32 object-cover mb-4 rounded-lg">
+                                    <img src="https://rajakomputer.id/wp-content/uploads/2022/01/upgrade-ram-laptop.jpg" alt="Upgrade Memory" class="w-full h-32 object-cover mb-4 rounded-lg">
                                     <h4 class="text-xl font-semibold mb-2">Upgrade Memory</h4>
                                     <p>Upgrade memori untuk performa multitasking yang lebih baik.</p>
                                 </div>
                                 <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg">
-                                    <img src="https://example.com/virus-removal.jpg" alt="Virus Removal" class="w-full h-32 object-cover mb-4 rounded-lg">
-                                    <h4 class="text-xl font-semibold mb-2">Virus Removal</h4>
+                                    <img src="https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2016/01/pc-maintenance.jpg" alt="Virus Removal" class="w-full h-32 object-cover mb-4 rounded-lg">
+                                    <h4 class="text-xl font-semibold mb-2">Computer Maintance</h4>
                                     <p>Penghapusan virus dan malware untuk keamanan data Anda.</p>
                                 </div>
                                 <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg">
-                                    <img src="https://example.com/system-optimization.jpg" alt="System Optimization" class="w-full h-32 object-cover mb-4 rounded-lg">
-                                    <h4 class="text-xl font-semibold mb-2">System Optimization</h4>
+                                    <img src="https://cdn.windowsreport.com/wp-content/uploads/2018/08/windows-10-software.jpg" alt="System Optimization" class="w-full h-32 object-cover mb-4 rounded-lg">
+                                    <h4 class="text-xl font-semibold mb-2">Software Fix</h4>
                                     <p>Optimasi sistem untuk kinerja yang lebih cepat dan efisien.</p>
                                 </div>
                                 <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-lg">
-                                    <img src="https://example.com/hardware-repair.jpg" alt="Hardware Repair" class="w-full h-32 object-cover mb-4 rounded-lg">
+                                    <img src="https://p1.pxfuel.com/preview/986/794/372/hardware-computer-computer-service-technology.jpg" alt="Hardware Repair" class="w-full h-32 object-cover mb-4 rounded-lg">
                                     <h4 class="text-xl font-semibold mb-2">Hardware Repair</h4>
                                     <p>Perbaikan hardware untuk memperbaiki kerusakan fisik pada laptop.</p>
                                 </div>
