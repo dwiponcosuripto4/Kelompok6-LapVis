@@ -201,7 +201,7 @@
 <body>
     <div class="container">
         <header class="header">
-            <img src="assets/LAPVIS.png" alt="hai">
+            <img src="{{ asset('assets/LAPVIS.png') }}" alt="hai" width="100" height="100">
             <nav class="navigation">
                 <a href="{{ route('login') }}">Log in</a>
                 <a href="{{ route('register') }}">Register</a>
@@ -209,8 +209,8 @@
         </header>
 
         <section class="hero">
-            <h1>Welcome to Laravel</h1>
-            <p>Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling.</p>
+            <h1>Welcome to LapVis</h1>
+            <p>Selamat datang di LapVis! Apakah laptop Anda bermasalah? Tenang, kami siap membantu dengan cepat dan profesional. Tim teknisi kami yang berpengalaman menangani perbaikan hardware, optimasi software, dan penggantian komponen dengan suku cadang asli. Di LapVis, kami menjamin kualitas dan memberikan garansi pada setiap layanan. Serahkan laptop Anda kepada kami, dan nikmati performa terbaiknya kembali!</p>
         </section>
 
         {{-- <section class="features">
@@ -244,7 +244,7 @@
         </section> --}}
 
         <footer class="footer">
-            <p>Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) | Created by <a href="#">Your Company</a></p>
+            <p>Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) | Created by <a href="#">LapVis Company</a></p>
         </footer>
     </div>
 </body>
