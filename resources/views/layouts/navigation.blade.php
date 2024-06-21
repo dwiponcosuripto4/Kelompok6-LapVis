@@ -18,11 +18,9 @@
                         {{ __('Service') }}
                     </x-nav-link>
                     @can('admin')
-                    <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
-                        {{ __('Jenis Service') }}
-                    </x-nav-link>
-
-
+                        <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
+                            {{ __('Jenis Service') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
                             {{ __('User') }}
                         </x-nav-link>

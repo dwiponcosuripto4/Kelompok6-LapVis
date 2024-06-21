@@ -51,6 +51,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'davin@gmail.com',
             'is_admin' => true,
         ]);
+        User::factory()->create([
+            'name' => 'Aldi Raihan',
+            'email' => 'aldi@gmail.com',
+            'is_admin' => true,
+        ]);
 
         // Factory
         User::factory(100)->create();
