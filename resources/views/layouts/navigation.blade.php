@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 dark:bg-gray-800 dark:border-gray-700">
     <!-- Website Title -->
-    <div class="text-center py-4">
+    <div class="py-4 text-center">
         <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">LapVis</h1>
         <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Sistem manajemen servis laptop</p>
     </div>
@@ -17,10 +17,12 @@
                     <x-nav-link :href="route('todo.index')" :active="request()->routeIs('todo.*')">
                         {{ __('Service') }}
                     </x-nav-link>
+                    @can('admin')
                     <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
                         {{ __('Jenis Service') }}
                     </x-nav-link>
-                    @can('admin')
+
+
                         <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
                             {{ __('User') }}
                         </x-nav-link>
