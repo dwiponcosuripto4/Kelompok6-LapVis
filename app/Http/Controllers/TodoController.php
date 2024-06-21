@@ -164,17 +164,6 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Todo $todo)
-    {
-        if (auth()->user()->id == $todo->user_id) {
-            $todo->delete();
-
-            return redirect()
-                ->route('todo.index')->with('success', 'Todo deleted successfully!');
-        }
-
-        return redirect()->route('todo.index')->with('danger', 'You are not authorized to delete this todo!');
-    }
 
     public function destroyCompleted()
     {
@@ -190,7 +179,7 @@ class TodoController extends Controller
 
     public function complete(Todo $todo)
     {
-        if (auth()->user()->id == $todo->user_id) {
+        if (auth()->user()->id == $todo->user_id || auth()->user()->can('admin')) {
             $todo->update([
                 'is_complete' => true,
             ]);
@@ -203,7 +192,7 @@ class TodoController extends Controller
 
     public function uncomplete(Todo $todo)
     {
-        if (auth()->user()->id == $todo->user_id) {
+        if (auth()->user()->id == $todo->user_id || auth()->user()->can('admin')) {
             $todo->update([
                 'is_complete' => false,
             ]);
@@ -213,4 +202,18 @@ class TodoController extends Controller
 
         return redirect()->route('todo.index')->with('danger', 'You are not authorized to uncomplete this todo!');
     }
+
+    public function destroy(Todo $todo)
+    {
+        if (auth()->user()->id == $todo->user_id || auth()->user()->can('admin')) {
+            $todo->delete();
+
+            return redirect()
+                ->route('todo.index')->with('success', 'Todo deleted successfully!');
+        }
+
+        return redirect()->route('todo.index')->with('danger', 'You are not authorized to delete this todo!');
+    }
+
+
 }
