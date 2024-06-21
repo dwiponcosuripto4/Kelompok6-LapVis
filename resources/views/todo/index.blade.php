@@ -47,9 +47,11 @@
                                 <th scope="col" class="hidden px-6 py-3 md:block">
                                     Status
                                 </th>
+                                @can('admin')
                                 <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -80,6 +82,7 @@
                                             </span>
                                         @endif
                                     </td>
+                                    @can('admin')
                                     <td class="px-6 py-4">
                                         <div class="flex space-x-3">
                                             @if (auth()->user()->id == $todo->user_id || auth()->user()->can('admin'))
@@ -110,6 +113,7 @@
                                             @endif
                                         </div>
                                     </td>
+                                    @endcan
                                 </tr>
                             @empty
                                 <tr class="bg-white dark:bg-gray-800">
