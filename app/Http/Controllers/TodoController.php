@@ -214,6 +214,4 @@ class TodoController extends Controller
 
         return redirect()->route('todo.index')->with('danger', 'You are not authorized to delete this todo!');
     }
-
-
 }
