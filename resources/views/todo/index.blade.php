@@ -10,9 +10,11 @@
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                 <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
                     <div class="flex items-center justify-between">
+                        @can('admin')
                         <div>
                             <x-create-button href="{{ route('todo.create') }}" />
                         </div>
+                        @endcan
                         <div>
                             @if (session('success'))
                                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 5000)"
