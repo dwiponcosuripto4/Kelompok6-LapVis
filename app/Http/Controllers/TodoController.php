@@ -16,11 +16,19 @@ class TodoController extends Controller
     public function index()
     {
         // $todos = Todo::where('user_id', auth()->id())->get();
-        $todos = Todo::with('category')->where('user_id', auth()->user()->id)
-            ->orderBy('is_complete', 'asc')
-            // ->latest()
-            ->orderBy('created_at', 'desc')
-            ->get();
+        if (auth()->user()->can('admin')) {
+            // Jika user adalah admin, tampilkan semua todo
+            $todos = Todo::with(['category', 'user'])
+                ->orderBy('is_complete', 'asc')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
+            // Jika user bukan admin, tampilkan todo milik mereka sendiri
+            $todos = Todo::with(['category', 'user'])->where('user_id', auth()->user()->id)
+                ->orderBy('is_complete', 'asc')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
 
         $todosCompleted = Todo::where('user_id', auth()->user()->id)
             ->where('is_complete', true)
@@ -65,6 +73,7 @@ class TodoController extends Controller
                     $query->where('user_id', auth()->user()->id);
                 }),
             ],
+            'user_id' => 'required|exists:users,id',
         ]);
 
         // Practical
@@ -84,7 +93,7 @@ class TodoController extends Controller
         // Eloquent Way - Readable
         $todo = Todo::create([
             'title' => ucfirst($request->title),
-            'user_id' => auth()->user()->id,
+            'user_id' => $request->user_id,
             'category_id' => $request->category_id,
         ]);
 
@@ -107,13 +116,13 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        return view('todo.edit', compact('todo'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Todo $todo)
+    /**public function edit(Todo $todo)
     {
         $categories = Category::where('user_id', auth()->user()->id)->get();
 

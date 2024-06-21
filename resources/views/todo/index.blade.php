@@ -41,6 +41,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     Jenis Service
                                 </th>
+                                <th scope="col" class="px-6 py-3">
+                                    User ID
+                                </th>
                                 <th scope="col" class="hidden px-6 py-3 md:block">
                                     Status
                                 </th>
@@ -55,13 +58,16 @@
                             @forelse ($todos as $todo)
                                 <tr class="odd:bg-white odd:dark:bg-gray-800 even:bg-gray-50 even:dark:bg-gray-700">
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                                        <a href="{{ route('todo.edit', $todo) }}"
+                                        <a href="{{ route('todo.show', $todo) }}"
                                             class="hover:underline">{{ $todo->title }}</a>
                                     </td>
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
                                         @if ($todo->category)
                                             {{ $todo->category->title }}
                                         @endif
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $todo->user->id }}
                                     </td>
                                     <td class="hidden px-6 py-4 md:block">
                                         @if ($todo->is_complete == false)
@@ -76,7 +82,7 @@
                                             </span>
                                         @endif
                                     </td>
-                                    @can('admin')
+                                    @can('complete', $todo)
                                     <td class="px-6 py-4">
                                         <div class="flex space-x-3">
                                             @if ($todo->is_complete == false)
@@ -96,6 +102,7 @@
                                                     </button>
                                                 </form>
                                             @endif
+                                            @can('delete', $todo)
                                             <form action="{{ route('todo.destroy', $todo) }}" method="Post">
                                                 @csrf
                                                 @method('DELETE')
@@ -103,11 +110,11 @@
                                                     Delete
                                                 </button>
                                             </form>
+                                            @endcan
                                         </div>
                                     </td>
-
+                                    @endcan
                                 </tr>
-                                @endcan
                             @empty
                                 <tr class="bg-white dark:bg-gray-800">
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
