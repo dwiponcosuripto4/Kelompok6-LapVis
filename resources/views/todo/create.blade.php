@@ -32,6 +32,14 @@
                             </x-select>
                             <x-input-error class="mt-2" :messages="$errors->get('category_id')" />
                         </div>
+                        <div class="mb-6">
+                            <x-input-label for="user_search" :value="__('Nama User')" />
+                            <x-text-input id="user_search" name="user_search" type="text" class="block w-full mt-1"
+                                :value="old('user_search')" autocomplete="user_search" />
+                            <x-input-error class="mt-2" :messages="$errors->get('user_search')" />
+                            <div id="user-results" class="mt-2"></div>
+                        </div>
+                        <input type="hidden" name="user_id" id="user_id" value="{{ old('user_id') }}">
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>
                             <a href="{{ route('todo.index') }}"
@@ -42,4 +50,30 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('user_search').addEventListener('input', function() {
+            const search = this.value;
+            if (search.length >= 2) {
+                fetch(`/search-users?search=${search}`)
+                    .then(response => response.json())
+                    .then(users => {
+                        let results = '';
+                        users.forEach(user => {
+                            results += `<div class="user-item" data-id="${user.id}">${user.name}</div>`;
+                        });
+                        document.getElementById('user-results').innerHTML = results;
+                        document.querySelectorAll('.user-item').forEach(item => {
+                            item.addEventListener('click', function() {
+                                document.getElementById('user_search').value = this.textContent;
+                                document.getElementById('user_id').value = this.dataset.id;
+                                document.getElementById('user-results').innerHTML = '';
+                            });
+                        });
+                    });
+            } else {
+                document.getElementById('user-results').innerHTML = '';
+            }
+        });
+    </script>
 </x-app-layout>

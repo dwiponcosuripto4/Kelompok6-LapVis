@@ -44,9 +44,11 @@
                                 <th scope="col" class="hidden px-6 py-3 md:block">
                                     Status
                                 </th>
+                                @can('admin')
                                 <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -74,6 +76,7 @@
                                             </span>
                                         @endif
                                     </td>
+                                    @can('admin')
                                     <td class="px-6 py-4">
                                         <div class="flex space-x-3">
                                             @if ($todo->is_complete == false)
@@ -104,6 +107,7 @@
                                     </td>
 
                                 </tr>
+                                @endcan
                             @empty
                                 <tr class="bg-white dark:bg-gray-800">
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Todo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -34,7 +35,13 @@ class TodoController extends Controller
         //     'todos' => $todos,
         // ]);
     }
-
+    public function searchUsers(Request $request)
+    {
+        $search = $request->get('search');
+        $users = User::where('name', 'like', '%' . $search . '%')->get();
+        return response()->json($users);
+    }
+    
     /**
      * Show the form for creating a new resource.
      */

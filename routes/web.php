@@ -34,6 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('todo', TodoController::class);
     Route::resource('user', UserController::class);
     Route::resource('category', CategoryController::class);
+    Route::get('/search-users', [TodoController::class, 'searchUsers'])->name('search.users');
+
 
     // Route Resources
     // Route::resources([
