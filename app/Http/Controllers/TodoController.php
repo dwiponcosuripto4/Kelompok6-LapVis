@@ -16,6 +16,8 @@ class TodoController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $filterCompleted = $request->input('filter_completed');
+
         $query = Todo::with(['category', 'user']);
 
         if (auth()->user()->can('admin')) {
@@ -39,6 +41,10 @@ class TodoController extends Controller
             }
         }
 
+        if ($filterCompleted) {
+            $query->where('is_complete', true);
+        }
+
         $todos = $query->orderBy('is_complete', 'asc')
                     ->orderBy('created_at', 'desc')
                     ->paginate(10);
@@ -49,6 +55,7 @@ class TodoController extends Controller
 
         return view('todo.index', compact('todos', 'todosCompleted'));
     }
+
 
 
     public function searchUsers(Request $request)

@@ -27,11 +27,24 @@
                 {{-- Notification --}}
                 <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
                     <div class="flex items-center justify-between">
-                        @can('admin')
-                        <div>
-                            <x-create-button href="{{ route('todo.create') }}" />
+                        <div class="flex items-center space-x-4">
+                            @can('admin')
+                            <div>
+                                <x-create-button href="{{ route('todo.create') }}" />
+                            </div>
+                            <form class="flex items-center gap-2" method="GET" action="{{ route('todo.index') }}">
+                                <input type="hidden" name="search" value="{{ request('search') }}">
+                                <x-primary-button type="submit" name="filter_completed" value="1">
+                                    {{ __('Filter Completed') }}
+                                </x-primary-button>
+                                @if (request('filter_completed'))
+                                    <x-secondary-button type="submit">
+                                        {{ __('Clear Filter') }}
+                                    </x-secondary-button>
+                                @endif
+                            </form>
+                            @endcan
                         </div>
-                        @endcan
                         <div>
                             @if (session('success'))
                                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 5000)"
