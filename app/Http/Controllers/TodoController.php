@@ -82,6 +82,7 @@ class TodoController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
+            'description' => 'nullable|string',
             'category_id' => [
                 'nullable',
                 Rule::exists('categories', 'id')->where(function ($query) {
@@ -108,6 +109,7 @@ class TodoController extends Controller
         // Eloquent Way - Readable
         $todo = Todo::create([
             'title' => ucfirst($request->title),
+            'description' => $request->description,
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
         ]);
@@ -155,6 +157,7 @@ class TodoController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
+            'description' => 'nullable|string',
             'category_id' => [
                 'nullable',
                 Rule::exists('categories', 'id')->where(function ($query) {
@@ -170,6 +173,7 @@ class TodoController extends Controller
         // Eloquent Way - Readable
         $todo->update([
             'title' => ucfirst($request->title),
+            'description' => $request->description,
             'category_id' => $request->category_id,
         ]);
 

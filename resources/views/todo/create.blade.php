@@ -40,6 +40,11 @@
                             <div id="user-results" class="mt-2"></div>
                         </div>
                         <input type="hidden" name="user_id" id="user_id" value="{{ old('user_id') }}">
+                        <div>
+                            <x-input-label for="description" :value="__('Description')" />
+                            <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')" autofocus />
+                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                        </div>
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>
                             <a href="{{ route('todo.index') }}"

@@ -133,6 +133,13 @@
                                                         </button>
                                                     </form>
                                                 @endif
+                                                <form action="{{ route('todo.destroy', $todo) }}" method="Post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-600 dark:text-red-400">
+                                                        Delete
+                                                    </button>
+                                                </form>
                                             @endif
                                         </div>
                                     </td>
