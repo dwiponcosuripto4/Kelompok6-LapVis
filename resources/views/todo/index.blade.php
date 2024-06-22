@@ -8,6 +8,23 @@
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                @can('admin')
+                <div class="px-6 pt-6 mb-5 md:w-1/2 2xl:w-1/3">
+                    @if (request('search'))
+                        <h2 class="pb-3 text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+                            Search results for : {{ request('search') }}
+                        </h2>
+                    @endif
+                    <form class="flex items-center gap-2" method="GET" action="{{ route('todo.index') }}">
+                        <x-text-input id="search" name="search" type="text" class="w-full"
+                            placeholder="Search by name or user ID ..." value="{{ request('search') }}" autofocus />
+                        <x-primary-button type="submit">
+                            {{ __('Search') }}
+                        </x-primary-button>
+                    </form>
+                </div>
+                @endcan
+                {{-- Notification --}}
                 <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
                     <div class="flex items-center justify-between">
                         @can('admin')
@@ -73,12 +90,12 @@
                                         @if ($todo->is_complete == false)
                                             <span
                                                 class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-                                                Ongoing
+                                                Sedang dikerjakan
                                             </span>
                                         @else
                                             <span
                                                 class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                                                Completed
+                                                Selesai bisa diambil!
                                             </span>
                                         @endif
                                     </td>
@@ -103,13 +120,6 @@
                                                         </button>
                                                     </form>
                                                 @endif
-                                                <form action="{{ route('todo.destroy', $todo) }}" method="Post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-600 dark:text-red-400">
-                                                        Delete
-                                                    </button>
-                                                </form>
                                             @endif
                                         </div>
                                     </td>
@@ -125,17 +135,13 @@
                         </tbody>
                     </table>
                 </div>
-                @if ($todosCompleted > 1)
-                    <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
-                        <form action="{{ route('todo.deleteallcompleted') }}" method="Post">
-                            @csrf
-                            @method('delete')
-                            <x-primary-button>
-                                Delete All Completed Task
-                            </x-primary-button>
-                        </form>
+                {{-- Pagination --}}
+                @if ($todos->hasPages())
+                    <div class="p-6">
+                        {{ $todos->links('vendor.pagination.custom-tailwind') }}
                     </div>
                 @endif
+
             </div>
         </div>
     </div>

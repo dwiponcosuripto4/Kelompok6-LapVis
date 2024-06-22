@@ -13,36 +13,44 @@ class TodoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $todos = Todo::where('user_id', auth()->id())->get();
+        $search = $request->input('search');
+        $query = Todo::with(['category', 'user']);
+
         if (auth()->user()->can('admin')) {
-            // Jika user adalah admin, tampilkan semua todo
-            $todos = Todo::with(['category', 'user'])
-                ->orderBy('is_complete', 'asc')
-                ->orderBy('created_at', 'desc')
-                ->get();
+            if ($search) {
+                $query->where(function($q) use ($search) {
+                    $q->whereHas('user', function($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('id', 'like', '%' . $search . '%');
+                    });
+                });
+            }
         } else {
-            // Jika user bukan admin, tampilkan todo milik mereka sendiri
-            $todos = Todo::with(['category', 'user'])->where('user_id', auth()->user()->id)
-                ->orderBy('is_complete', 'asc')
-                ->orderBy('created_at', 'desc')
-                ->get();
+            $query->where('user_id', auth()->user()->id);
+            if ($search) {
+                $query->where(function($q) use ($search) {
+                    $q->whereHas('user', function($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('id', 'like', '%' . $search . '%');
+                    });
+                });
+            }
         }
+
+        $todos = $query->orderBy('is_complete', 'asc')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(10);
 
         $todosCompleted = Todo::where('user_id', auth()->user()->id)
             ->where('is_complete', true)
             ->count();
 
-        // dd($todos);
-        // dd($todos->toArray());
-
         return view('todo.index', compact('todos', 'todosCompleted'));
-
-        // return view('todo.index', [
-        //     'todos' => $todos,
-        // ]);
     }
+
+
     public function searchUsers(Request $request)
     {
         $search = $request->get('search');
