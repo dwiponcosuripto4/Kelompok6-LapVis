@@ -18,4 +18,5 @@ export default {
     },
 
     plugins: [forms],
+    darkMode: 'class' // Just add this line at the bottom.
 };
