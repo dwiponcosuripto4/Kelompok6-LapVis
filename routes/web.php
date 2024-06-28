@@ -39,27 +39,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/todos/{todo}', [TodoController::class, 'show'])->name('todo.edit');
 
-
-    // Route Resources
-    // Route::resources([
-    //     'todo' => TodoController::class,
-    //     'user' => UserController::class,
-    //     'category' => CategoryController::class,
-    // ]);
-
     // Todo Routes
-    // Route::get('/todo', [TodoController::class, 'index'])->name('todo.index');
-    // Route::post('/todo', [TodoController::class, 'store'])->name('todo.store');
-    // Route::get('/todo/create', [TodoController::class, 'create'])->name('todo.create');
-    // Route::get('/todo/edit', [TodoController::class, 'edit'])->name('todo.edit');
-    // Route::get('/todo/{todo}/edit', [TodoController::class, 'edit'])->name('todo.edit');
-    // Route::patch('/todo/{todo}', [TodoController::class, 'update'])->name('todo.update');
-    // Route::delete('/todo/{todo}', [TodoController::class, 'destroy'])->name('todo.destroy');
     Route::patch('/todo/{todo}/complete', [TodoController::class, 'complete'])->name('todo.complete');
     Route::patch('/todo/{todo}/incomplete', [TodoController::class, 'uncomplete'])->name('todo.uncomplete');
     Route::delete('/todo', [TodoController::class, 'destroyCompleted'])->name('todo.deleteallcompleted');
 
+    // Order Routes
     Route::resource('order', OrderController::class)->except(['show']);
+    Route::patch('/order/{order}/complete', [OrderController::class, 'complete'])->name('order.complete');
+    Route::patch('/order/{order}/uncomplete', [OrderController::class, 'uncomplete'])->name('order.uncomplete');
+
     // User Routes
     Route::middleware(['admin'])->group(function () {
         Route::get('/user', [UserController::class, 'index'])->name('user.index');
@@ -70,6 +59,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-
-//request ulang

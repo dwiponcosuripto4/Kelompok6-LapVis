@@ -65,6 +65,8 @@ class OrderController extends Controller
             'todo_id' => $request->todo_id,
             'description' => $request->description,
             'is_completed' => false,
+            'user_id' => auth()->user()->id,
+            'date' => now(), // Menambahkan nilai date
         ]);
 
         return redirect()->route('order.index')->with('success', 'Order created successfully!');
