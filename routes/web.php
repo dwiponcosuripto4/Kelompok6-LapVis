@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\OrderController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,4 +59,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+// Route::get('login/github', function () {
+//     return Socialite::driver('github')->redirect();
+// });
+
+// Route::get('login/github/callback', function () {
+//     $user = Socialite::driver('github')->user();
+
+//     // $user->token
+//     // Logic to log the user in or create a new user
+// });
+
+Route::get('login/github', [App\Http\Controllers\AuthController::class, 'redirectToGithub']);
+Route::get('login/github/callback', [App\Http\Controllers\AuthController::class, 'handleGithubCallback']);
+
+require __DIR__ . '/auth.php';
