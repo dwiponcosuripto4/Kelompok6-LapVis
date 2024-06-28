@@ -161,7 +161,17 @@
                         {{ $todos->links('vendor.pagination.custom-tailwind') }}
                     </div>
                 @endif
-
+                @if ($todosCompleted > 1)
+                    <div class="p-6 text-xl text-gray-900 dark:text-gray-100">
+                        <form action="{{ route('todo.deleteallcompleted') }}" method="Post">
+                            @csrf
+                            @method('delete')
+                            <x-primary-button>
+                                Delete All Completed Task
+                            </x-primary-button>
+                        </form>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
