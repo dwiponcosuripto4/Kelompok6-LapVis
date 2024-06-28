@@ -17,6 +17,9 @@
                     <x-nav-link :href="route('todo.index')" :active="request()->routeIs('todo.*')">
                         {{ __('Service') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('order.index')" :active="request()->routeIs('order.*')">
+                        {{ __('Order') }}
+                    </x-nav-link>
                     @can('admin')
                         <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
                             {{ __('Jenis Service') }}
@@ -90,6 +93,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('todo.index')" :active="request()->routeIs('todo.*')">
                 {{ __('Service') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('order.index')" :active="request()->routeIs('order.*')">
+                {{ __('Order') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
                 {{ __('Jenis Service') }}

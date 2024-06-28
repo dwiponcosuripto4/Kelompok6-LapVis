@@ -1,4 +1,5 @@
 <?php
+// Order.php
 
 namespace App\Models;
 
@@ -12,17 +13,9 @@ class Order extends Model
 
     protected $guarded = ['id'];
 
-    // Asumsikan nama tabel Anda adalah 'orders'
-    // Jika tidak, tentukan dengan properti protected $table
-    // protected $table = 'orders';
-
-    public function service(): BelongsTo
+    public function todo(): BelongsTo
     {
-        return $this->belongsTo(Service::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Todo::class);
     }
 }
+

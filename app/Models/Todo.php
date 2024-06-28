@@ -5,20 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Todo extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
-
-    // protected $fillable = [
-    //     'title',
-    //      'description',
-    //     'user_id',
-    //     'category_id',
-    //     'is_complete',
-    // ];
 
     public function user(): BelongsTo
     {
@@ -29,6 +22,7 @@ class Todo extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);

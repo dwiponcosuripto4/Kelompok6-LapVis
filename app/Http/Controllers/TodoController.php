@@ -17,6 +17,7 @@ class TodoController extends Controller
     {
         $search = $request->input('search');
         $filterCompleted = $request->input('filter_completed');
+        $order = $request->input('order', 'created_at'); // Default ordering by created_at
 
         $query = Todo::with(['category', 'user']);
 
@@ -45,8 +46,9 @@ class TodoController extends Controller
             $query->where('is_complete', true);
         }
 
+        // Order by the specified column
         $todos = $query->orderBy('is_complete', 'asc')
-                    ->orderBy('created_at', 'desc')
+                    ->orderBy($order, 'desc')
                     ->paginate(10);
 
         $todosCompleted = Todo::where('user_id', auth()->user()->id)
@@ -55,7 +57,6 @@ class TodoController extends Controller
 
         return view('todo.index', compact('todos', 'todosCompleted'));
     }
-
 
 
     public function searchUsers(Request $request)
@@ -78,7 +79,7 @@ class TodoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Todo $todo)
+    public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|max:255',
@@ -92,36 +93,12 @@ class TodoController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        // Practical
-        // $todo = new Todo;
-        // $todo->title = $request->title;
-        // $todo->user_id = auth()->user()->id;
-        // $todo->save();
-
-        // Query Builder way
-        // DB::table('todos')->insert([
-        //     'title' => $request->title,
-        //     'user_id' => auth()->user()->id,
-        //     'created_at' => now(),
-        //     'updated_at' => now(),
-        // ]);
-
-        // Eloquent Way - Readable
         $todo = Todo::create([
             'title' => ucfirst($request->title),
             'description' => $request->description,
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
         ]);
-
-        // Eloquent Way - Shortest
-        // $request->user()->todos()->create($request->all());
-        // $request->user()->todos()->create([
-        //     'title' => ucfirst($request->title),
-        // ]);
-
-        // dd($todo);
-        // dd($todo->toArray());
 
         return redirect()
             ->route('todo.index')
@@ -139,7 +116,7 @@ class TodoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    /**public function edit(Todo $todo)
+    public function edit(Todo $todo)
     {
         $categories = Category::where('user_id', auth()->user()->id)->get();
 
@@ -166,11 +143,6 @@ class TodoController extends Controller
             ],
         ]);
 
-        // Practical
-        // $todo->title = $request->title;
-        // $todo->save();
-
-        // Eloquent Way - Readable
         $todo->update([
             'title' => ucfirst($request->title),
             'description' => $request->description,
@@ -183,7 +155,6 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-
     public function destroyCompleted()
     {
         $todosCompleted = Todo::where('user_id', auth()->user()->id)
