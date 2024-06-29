@@ -14,7 +14,7 @@
 
                         <!-- Todo -->
                         <div class="mt-4">
-                            <x-input-label for="todo_id" :value="__('Todo')" />
+                            <x-input-label for="todo_id" :value="__('Service Completed')" />
                             <select id="todo_id" class="block w-full mt-1 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" name="todo_id" required>
                                 @foreach ($todos as $todo)
                                     <option value="{{ $todo->id }}">{{ $todo->title }}</option>
