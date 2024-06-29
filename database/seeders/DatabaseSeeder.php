@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Todo;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -66,7 +67,7 @@ class DatabaseSeeder extends Seeder
         User::factory(100)->create();
         Category::factory(100)->create();
         Todo::factory(500)->create();
-
+        Order::factory(100)->create();
         // Factory with Relationship
         // User::all()->each(function (User $user) {
         //     $user->todos()->saveMany(Todo::factory(10)->make());
