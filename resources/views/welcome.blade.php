@@ -6,14 +6,23 @@
     <title>Laravel</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMXoXlwccmHJrGFlm4Aa4tL8K3Z2+4crK1j1fdl" crossorigin="anonymous">
     <style>
         body {
             font-family: 'figtree', sans-serif;
-            background-color: #f3f4f6;
-            color: #333;
             margin: 0;
             padding: 0;
             line-height: 1.6;
+        }
+
+        body.light-mode {
+            background-color: #f3f4f6;
+            color: #333;
+        }
+
+        body.dark-mode {
+            background-color: #1a202c;
+            color: #cbd5e0;
         }
 
         .container {
@@ -31,6 +40,10 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
+        body.dark-mode .header {
+            background-color: #2d3748;
+        }
+
         .logo {
             width: 100px;
             height: auto;
@@ -39,6 +52,7 @@
         .navigation {
             display: flex;
             gap: 20px;
+            align-items: center;
         }
 
         .navigation a {
@@ -50,9 +64,32 @@
             transition: background-color 0.3s ease;
         }
 
+        body.dark-mode .navigation a {
+            color: #cbd5e0;
+        }
+
         .navigation a:hover {
             background-color: #e53e3e;
             color: #fff;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: #e2e8f0;
+        }
+
+        body.dark-mode .theme-toggle:hover {
+            background-color: #4a5568;
         }
 
         .hero {
@@ -68,6 +105,10 @@
             border-radius: 10px;
         }
 
+        body.dark-mode .hero {
+            background-color: #2d3748;
+        }
+
         .hero h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
@@ -78,6 +119,10 @@
             color: #666;
             max-width: 600px;
             margin-bottom: 30px;
+        }
+
+        body.dark-mode .hero p {
+            color: #a0aec0;
         }
 
         .features {
@@ -97,6 +142,10 @@
             align-items: center;
             text-align: center;
             transition: transform 0.3s ease;
+        }
+
+        body.dark-mode .feature {
+            background-color: #2d3748;
         }
 
         .feature:hover {
@@ -119,6 +168,10 @@
             color: #666;
         }
 
+        body.dark-mode .feature p {
+            color: #a0aec0;
+        }
+
         .footer {
             text-align: center;
             margin-top: 40px;
@@ -127,9 +180,17 @@
             box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
         }
 
+        body.dark-mode .footer {
+            background-color: #2d3748;
+        }
+
         .footer p {
             font-size: 0.8rem;
             color: #888;
+        }
+
+        body.dark-mode .footer p {
+            color: #a0aec0;
         }
 
         .footer a {
@@ -205,6 +266,10 @@
             <nav class="navigation">
                 <a href="{{ route('login') }}">Log in</a>
                 <a href="{{ route('register') }}">Register</a>
+                <div id="theme-toggle" class="theme-toggle">
+                    <i id="theme-toggle-dark-icon" class="fas fa-sun hidden"></i>
+                    <i id="theme-toggle-light-icon" class="fas fa-moon hidden"></i>
+                </div>
             </nav>
         </header>
 
@@ -247,5 +312,46 @@
             <p>Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) | Created by <a href="#">LapVis Company</a></p>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggleBtn = document.getElementById("theme-toggle");
+            const themeToggleDarkIcon = document.getElementById("theme-toggle-dark-icon");
+            const themeToggleLightIcon = document.getElementById("theme-toggle-light-icon");
+
+            function updateIcons() {
+                if (document.body.classList.contains('dark-mode')) {
+                    themeToggleLightIcon.classList.remove("hidden");
+                    themeToggleDarkIcon.classList.add("hidden");
+                } else {
+                    themeToggleDarkIcon.classList.remove("hidden");
+                    themeToggleLightIcon.classList.add("hidden");
+                }
+            }
+
+            // Check for theme preference at the beginning
+            if (localStorage.getItem("color-theme") === "dark" || 
+                (!localStorage.getItem("color-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem("color-theme", "dark");
+            } else {
+                document.body.classList.add('light-mode');
+                localStorage.setItem("color-theme", "light");
+            }
+
+            updateIcons();
+
+            themeToggleBtn.addEventListener("click", function () {
+                document.body.classList.toggle('dark-mode');
+                document.body.classList.toggle('light-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem("color-theme", "dark");
+                } else {
+                    localStorage.setItem("color-theme", "light");
+                }
+                updateIcons();
+            });
+        });
+    </script>
 </body>
 </html>
